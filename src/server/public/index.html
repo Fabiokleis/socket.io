@@ -15,6 +15,15 @@
             console.log(obj.msg);
             socket.emit('hello_client_response',{msg: 'send with sucess'});
         });
+        socket.on('hi', (obj) => {
+            console.log(obj.msg);
+            socket.emit('client_response_to_hi', {msg: 'sucess broad'});
+        });
+        socket.on('hi2', (obj) => {
+            console.log(obj.msg);
+            socket.emit('client_response_to_hi2', {msg: 'sucess io.emit'});
+
+        });
     </script>
 </body>
 </html>
