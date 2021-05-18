@@ -1,18 +1,12 @@
 const express = require('express');
 const app = express();
+const httpServer = require('http').createServer(app);
 const path = require('path');
 const socketIO = require('socket.io');
 
-
 app.use('/', express.static(path.join(__dirname, 'public')));
 
-const server = app.listen(3000, (err) => {
-    if(err) throw err;
-    console.log('listening on *:3000');
-
-});
-
-const io = socketIO(server);
+const io = socketIO(httpServer);
 io.on('connection', (socket) => {
     console.log('a user connected');
 
@@ -47,7 +41,10 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('user disconnected');
     });
+});
 
-
+httpServer.listen(3000, (err) => {
+    if(err) throw err;
+    console.log('listening on *:3000');
 
 });
